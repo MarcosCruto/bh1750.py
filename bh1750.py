@@ -58,6 +58,7 @@ class BH1750:
     def __init__(self, i2c: I2C, addr: int = None, mode: int = CONTINUOUS_HIGH_RESOLUTION, mtreg: int = _MTREG_DEFAULT):
         self.i2c = i2c
         self.addr = addr if addr is not None else self._autodetect_addr()
+        self.mode = -1 # Initialize mode to an invalid state
 
         # Pre-allocate buffers for memory efficiency
         self._write_buf = bytearray(1)

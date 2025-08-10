@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="BH1750 Ambient Light Sensor" width="200"/>
+  <img src="assets/logo.webp" alt="BH1750 Ambient Light Sensor" width="200"/>
   <br/>
   <em>Because even creatures of the night need to know when it's <em>really</em> dark.</em>
 </p>

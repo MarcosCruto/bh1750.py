@@ -1,4 +1,4 @@
-# MicroPython Driver for BH1750 Ambient Light Sensor
+# bh1750.py
 
 [![CI](https://github.com/adyavanapalli/bh1750.py/actions/workflows/ci.yml/badge.svg)](https://github.com/adyavanapalli/bh1750.py/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

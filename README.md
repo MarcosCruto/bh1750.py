@@ -18,23 +18,14 @@ This driver is designed with best practices for embedded systems, making it suit
 
 ## Installation
 
-The recommended way to install this driver is to copy the `bh1750.py` file to the `lib/` directory on your MicroPython device.
+This driver can be installed via `mip` from GitHub. Simply run the following command on your device:
 
-### Manual Installation
-
-1.  Download the `bh1750.py` file from this repository.
-2.  Use a tool like `rshell` or `ampy` to copy the file to the `/lib` directory on your device.
-
-### Using mip (Alternative)
-
-Some versions of `mip` may have issues installing from repositories with a `.py` extension in their name. If you encounter an error, please use the manual installation method above.
-
-If you wish to try `mip`, the following command should work:
 ```python
 import mip
-# Note: This uses the full URL to the manifest file to avoid potential issues.
-mip.install("https://raw.githubusercontent.com/adyavanapalli/bh1750.py/main/packages.json")
+mip.install("github:adyavanapalli/bh1750.py/bh1750.py")
 ```
+
+Alternatively, you can manually copy the `bh1750.py` file to the `lib/` directory on your device.
 
 ## Usage Examples
 

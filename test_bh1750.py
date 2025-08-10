@@ -17,7 +17,7 @@ time.sleep_ms = lambda ms: None # Do nothing during tests
 # --- End Mock ---
 
 # Now that the environment is mocked, we can import the driver
-from bh1750 import BH1750, CONTINUOUS_HIGH_RESOLUTION, CONTINUOUS_HIGH_RESOLUTION_2, ONE_TIME_HIGH_RESOLUTION, _ADDR_LOW, _POWER_ON, _RESET
+from bh1750 import BH1750, CONTINUOUS_HIGH_RESOLUTION, CONTINUOUS_HIGH_RESOLUTION_2, ONE_TIME_HIGH_RESOLUTION, _ADDR_LOW, _POWER_ON, _POWER_DOWN, _RESET, _MTREG_MIN, _MTREG_MAX
 
 class MockI2C:
     """A mock I2C class to simulate machine.I2C for testing."""
@@ -92,6 +92,33 @@ class TestBH1750(unittest.TestCase):
         sensor.set_mtreg(120)
         written = self.mock_i2c.get_written_data()
         self.assertEqual(written, [[0x43], [0x78]])
+
+    def test_set_mtreg_clamps_low_value(self):
+        """Verify set_mtreg clamps values lower than the minimum."""
+        sensor = BH1750(self.mock_i2c)
+        sensor.set_mtreg(10)
+        self.assertEqual(sensor.mtreg, _MTREG_MIN)
+
+    def test_set_mtreg_clamps_high_value(self):
+        """Verify set_mtreg clamps values higher than the maximum."""
+        sensor = BH1750(self.mock_i2c)
+        sensor.set_mtreg(300)
+        self.assertEqual(sensor.mtreg, _MTREG_MAX)
+
+    def test_power_down_sends_correct_command(self):
+        """Verify power_down sends the correct I2C command."""
+        sensor = BH1750(self.mock_i2c)
+        self.mock_i2c.clear_written_data()
+        sensor.power_down()
+        self.assertEqual(self.mock_i2c.get_written_data(), [[_POWER_DOWN]])
+
+    def test_set_mode_avoids_redundant_writes(self):
+        """Verify set_mode does not send a command if the mode is unchanged."""
+        sensor = BH1750(self.mock_i2c, mode=CONTINUOUS_HIGH_RESOLUTION)
+        self.mock_i2c.clear_written_data()
+        # Set the same mode again
+        sensor.set_mode(CONTINUOUS_HIGH_RESOLUTION)
+        self.assertEqual(self.mock_i2c.get_written_data(), [])
 
     def test_one_shot_mode_resends_command(self):
         """Verify that in one-shot mode, the mode command is sent before each read."""

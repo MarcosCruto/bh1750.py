@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="BH1750 Ambient Light Sensor" width="200"/>
+</p>
+
 # bh1750.py
 
 [![CI](https://github.com/adyavanapalli/bh1750.py/actions/workflows/ci.yml/badge.svg)](https://github.com/adyavanapalli/bh1750.py/actions/workflows/ci.yml)
